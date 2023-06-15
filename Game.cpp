@@ -14,6 +14,7 @@ bool Game::isGridVisible = true;
 
 std::shared_ptr<Screen> Game::Screen_ = std::make_shared<MenuScreen>();
 std::shared_ptr<Screen> Game::Temp_Screen = nullptr;
+std::shared_ptr<Screen> Game::Paused_Screen = nullptr;
 
 Game::Game() : window_(sf::VideoMode(Game::Width, Game::Height), "sfSnake", sf::Style::Close)
 

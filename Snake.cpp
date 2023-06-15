@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
 
-#include <memory>
 #include <iostream>
 #include <cmath>
 
@@ -69,12 +68,13 @@ void Snake::handleInput(sf::RenderWindow &window)
 		direction_ = sf::Vector2f(-1.f, 0.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		direction_ = sf::Vector2f(1.f, 0.f);
-	// 按住空格加速
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-		if (Game::TimePerFrame == sf::seconds(1.f / 10.f))
-			Game::TimePerFrame = sf::seconds(1.f / 20.f);
-		else
-			Game::TimePerFrame = sf::seconds(1.f / 10.f);
+	// 按z加速,按c减速
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
+		if (Game::TimePerFrame.asSeconds() >= 0.03)
+			Game::TimePerFrame -= sf::seconds(0.005);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::E))
+		if (Game::TimePerFrame.asSeconds() <= 0.2)
+			Game::TimePerFrame += sf::seconds(0.005);
 	// 鼠标指定方向
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		direction_ = tellVec(sf::Mouse::getPosition(window));

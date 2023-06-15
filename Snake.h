@@ -6,6 +6,7 @@
 
 #include <list>
 #include <vector>
+#include <memory>
 
 #include "SnakeNode.h"
 #include "Fruit.h"

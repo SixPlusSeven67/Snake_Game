@@ -31,9 +31,9 @@ void Grid::setFillColor()
 
 void Grid::render(sf::RenderWindow &window)
 {
-    for (auto grid : Grid_x)
+    for (auto &grid : Grid_x)
         window.draw(grid);
 
-    for (auto grid : Grid_y)
+    for (auto &grid : Grid_y)
         window.draw(grid);
 }

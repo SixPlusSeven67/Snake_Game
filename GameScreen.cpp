@@ -7,6 +7,7 @@
 #include "GameScreen.h"
 #include "GameOverScreen.h"
 #include "Game.h"
+#include "PauseScreen.h"
 
 using namespace sfSnake;
 
@@ -27,10 +28,17 @@ GameScreen::GameScreen() : snake_()
 void GameScreen::handleInput(sf::RenderWindow &window)
 {
 	snake_.handleInput(window);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+	{
+		Game::Paused_Screen = Game::Screen_;
+		Game::Screen_ = std::make_shared<PauseScreen>();
+	}
 }
 
 void GameScreen::update(sf::Time delta)
 {
+	if (Game::Paused_Screen)
+		return;
 	static sf::Time timeSinceLastGenerate{sf::Time::Zero};
 	timeSinceLastGenerate += delta;
 	if (fruit_.size() == 0 || fruit_.size() < 12 && timeSinceLastGenerate.asSeconds() > 1)
@@ -40,7 +48,8 @@ void GameScreen::update(sf::Time delta)
 	}
 	snake_.update(delta);
 	snake_.checkFruitCollisions(fruit_);
-	text_.setString(L"得分：" + std::to_wstring(snake_.getScore()));
+	text_.setString(L"得分：" + std::to_wstring(snake_.getScore()) +
+					L"  速度：" + formatDobleValue(0.1 / Game::TimePerFrame.asSeconds(), 2) + L"x");
 
 	if (snake_.hitSelf())
 		Game::Screen_ = std::make_shared<GameOverScreen>(snake_.getScore());
@@ -64,5 +73,12 @@ void GameScreen::generateFruit()
 	static std::uniform_int_distribution<int> xDistribution(Game::Width / 100, Game::Width * 99 / 100);
 	static std::uniform_int_distribution<int> yDistribution(Game::Height / 100, Game::Height * 99 / 100);
 
-	fruit_.push_back(Fruit(sf::Vector2f(xDistribution(engine), yDistribution(engine))));
+	fruit_.emplace_back(sf::Vector2f(xDistribution(engine), yDistribution(engine)));
+}
+
+std::wstring formatDobleValue(double val, int fixed)
+{
+	std::wstring str;
+	str = std::to_wstring(val);
+	return str.substr(0, str.find(L".") + fixed + 1);
 }

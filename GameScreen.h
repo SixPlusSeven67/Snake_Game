@@ -30,5 +30,6 @@ namespace sfSnake
 		sf::Text text_;
 	};
 }
+std::wstring formatDobleValue(double val, int fixed);
 
 #endif

@@ -31,6 +31,7 @@ namespace sfSnake
 
 		static std::shared_ptr<Screen> Screen_;
 		static std::shared_ptr<Screen> Temp_Screen;
+		static std::shared_ptr<Screen> Paused_Screen;
 
 		static sf::Time TimePerFrame;
 

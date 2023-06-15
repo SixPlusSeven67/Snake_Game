@@ -2,6 +2,18 @@
 
 ### 编译说明:
 
+解压此压缩包后，进入 build 文件夹下，双击 `compile.bat`文件执行编译操作，生成下图这些文件：![1685928209351](image/README/1685928209351.png)
+
+双击 snake.exe 即可开始游戏。
+
+### 游戏说明
+
+1.本游戏基于 `[jhpy1024/sfSnake: A C++/SFML implementation of the game Snake. (github.com)](https://github.com/jhpy1024/sfSnake)`二次开发。
+
+2.游戏操作说明可见游戏开始界面![1685928400734](image/README/1685928400734.png)处。
+
+3.
+
 ## License
 
 The MIT License (MIT)
